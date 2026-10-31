@@ -95,10 +95,10 @@ const idxIn = []; { const c = [0,0]; for (let k=0;k<NPL;k++){ idxIn.push(c[pileO
 const T = { formula:0, isolate:3.5, axes:6.4, cascade:7.3, st:9.9, shrink:13.4, spawn:15.5, colour:18.4, sort:20.1, merge:22.6, add:24.7, together:27.4, curve:28.6, end:31.5 };
 const fmtN = n => n.toLocaleString('en-US');
 const PHASES = [
-  [T.formula, 'Start with a Fourier expansion of a modular form.', 'f(z) = Σ aₙ e(nz); here f is the weight-2 newform 1433.2.a.a, attached to the elliptic curve y² + xy + y = x³ − 30x + 59 of conductor 1433.'],
+  [T.formula, 'Consider the Fourier expansion of a modular form.', 'f(z) = Σ aₙ e(nz); here f is the weight-2 newform 1433.2.a.a, attached to the elliptic curve y² + xy + y = x³ − 30x + 59 of conductor 1433.'],
   [T.isolate, '', 'Keep only the prime indices and normalize: λ_f(p) = a_p / √p lies in [−2, 2].'],
   [T.axes, '', 'Horizontal axis p, vertical axis λ_f(p). All 2,262 primes below 20,000.'],
-  [T.st, 'They follow the Sato–Tate distribution.', 'Sato–Tate: the fraction of primes with λ_f(p) in an interval I tends to ∫_I √(4−t²)/(2π) dt.'],
+  [T.st, 'The coefficients follow the Sato–Tate distribution.', 'Sato–Tate: the fraction of primes with λ_f(p) in an interval I tends to ∫_I √(4−t²)/(2π) dt.'],
   [T.shrink, '', 'The same picture, smaller, and now only p below 3000, where we have every form of the family.'],
   [T.spawn, 'Look at all the forms of a large level ∼ X. Together they look like noise.', 'Here X = 1500: six of the ' + fmtN(D.forms) + ' newforms of squarefree level between 1400 and 1600, and the rest behind them.'],
   [T.colour, 'Sort them by root number ε(f) = ±1.', 'Teal: root number +1 (' + fmtN(D.plus) + ' forms). Purple: root number −1 (' + fmtN(D.minus) + ' forms).'],
@@ -261,10 +261,7 @@ function render(t){
       if (x > R.x1 + 3) continue;
       ctx.globalAlpha = 0.85; ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(x, y, j===0 ? (narrow?3.2:4) : r, 0, 7); ctx.fill();
     }
-    { const la = eo(T.cascade+0.6, T.cascade+0.9, t) * (1 - ei(T.cascade+1.0, T.cascade+1.4, t));
-      if (la > 0.01){ const [x,y] = target2; ctx.globalAlpha = la; ctx.fillStyle = Tok.fg; ctx.font = `italic 500 ${fsSmall}px ${Tok.display}`; ctx.textAlign='left'; ctx.textBaseline='bottom';
-        ctx.fillText('a', x+12, y-8); ctx.font = `italic 500 ${fsSmall*0.6}px ${Tok.display}`; ctx.fillText('2', x+12+fsSmall*0.55, y-4);
-        ctx.font = mono; ctx.fillStyle = Tok.muted; ctx.fillText(`= ${F0.an[1]},  λ = ${F0.lam[0].toFixed(2)}`, x+12+fsSmall*1.1, y-8); } }
+    // (the a_2 label that used to appear when the dot lands on the axes was removed on request)
     ctx.globalAlpha = 1;
   }
   if (aHist > 0.001 && t >= T.st){
