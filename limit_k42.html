@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weight 42 Murmurations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+:root{
+  --bg:#000000; --fg:#ececf1; --muted:#9aa3b5; --teal:#2ccbd6; --purple:#bf5fff;
+  --display:"Spectral",Georgia,"Times New Roman",serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#000000; --fg:#ececf1; } }
+:root[data-theme="dark"]{ --bg:#000000; --fg:#ececf1; }
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--display);font-size:18px;line-height:1.55;
+  padding:0 max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px))}
+.wrap{max-width:1000px;margin:0 auto}
+.back{padding-top:18px;font-size:15px}
+.back a{color:var(--muted);text-decoration:none}
+.back a:hover{color:var(--fg)}
+h1{font-weight:400;font-size:clamp(28px,4.5vw,40px);margin:14px 0 4px}
+.kicker{color:var(--muted);font-size:16px;margin:0 0 22px}
+picture img{display:block;width:100%;height:auto;border-radius:6px}
+.cap{max-width:72ch;margin-top:18px}
+.teal{color:var(--teal)} .purple{color:var(--purple)}
+footer{margin-top:22px;color:var(--muted);font-size:15px;max-width:72ch}
+footer a{color:inherit}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="back"><a href="index.html">← All visualizations</a></nav>
+  <h1>Every weight, eventually the same</h1>
+  <p class="kicker">The murmuration density of weight 42, from the origin out to √y = 2000</p>
+  <picture>
+    <source srcset="limit_k42.webp" type="image/webp">
+    <img src="limit_k42.gif" width="1000" height="440" alt="Animation: the weight-42 murmuration density divided by y to the one quarter, in teal, compared with the universal limit function in purple, as the square root of y runs from 0 to 2000; the two curves start out different and end up on top of each other.">
+  </picture>
+  <p class="cap">Animation: the weight-42 murmuration density divided by y to the one quarter,
+  <span class="teal">in teal</span>, compared with the universal limit function <span class="purple">in purple</span>,
+  as the square root of y runs from 0 to 2000. Every weight settles onto the same purple curve, with the
+  sign (−1)<sup>k/2−1</sup>, so weights k ≡ 2 mod 4 land on it and weights k ≡ 0 mod 4 on its mirror image.</p>
+  <footer>From <a href="https://arxiv.org/abs/2310.07681">N. Zubrilina, <i>Murmurations</i></a>,
+  Invent. Math. 2025. The teal curve is computed from the formula of Theorem 1; the purple curve is
+  the almost periodic function of Theorem 3, evaluated by summing the inner series exactly through
+  the polylogarithm Li<sub>3/2</sub>.</footer>
+</div>
+</body>
+</html>
