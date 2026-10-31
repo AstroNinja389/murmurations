@@ -5,10 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weight 42 Murmurations</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.getElementById('thm'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]})"></script>
 <style>
 :root{
-  --bg:#000000; --fg:#ececf1; --muted:#9aa3b5; --teal:#2ccbd6; --purple:#bf5fff;
+  --bg:#000000; --fg:#ececf1; --muted:#9aa3b5; --rule:#2b3140; --teal:#2ccbd6; --purple:#bf5fff;
   --display:"Spectral",Georgia,"Times New Roman",serif;
   color-scheme:dark;
 }
@@ -25,6 +29,13 @@ h1{font-weight:400;font-size:clamp(28px,4.5vw,40px);margin:14px 0 4px}
 picture img{display:block;width:100%;height:auto;border-radius:6px}
 .cap{max-width:72ch;margin-top:18px}
 .teal{color:var(--teal)} .purple{color:var(--purple)}
+.thm{margin-top:40px;padding-top:22px;border-top:1px solid var(--rule);max-width:80ch;
+  font-family:"Spectral",Georgia,serif;font-size:17px;line-height:1.6;color:var(--fg)}
+.thm p{margin:0 0 .8em}
+.thm .label{font-weight:600}
+.thm .note{color:var(--muted);font-size:16px}
+.thm .katex{font-size:1.05em}
+.thm .katex-display{overflow-x:auto;overflow-y:hidden;padding:2px 0}
 footer{margin-top:22px;color:var(--muted);font-size:15px;max-width:72ch}
 footer a{color:inherit}
 </style>
@@ -42,10 +53,21 @@ footer a{color:inherit}
   <span class="teal">in teal</span>, compared with the universal limit function <span class="purple">in purple</span>,
   as the square root of y runs from 0 to 2000. Every weight settles onto the same purple curve, with the
   sign (−1)<sup>k/2−1</sup>, so weights k ≡ 2 mod 4 land on it and weights k ≡ 0 mod 4 on its mirror image.</p>
-  <footer>From <a href="https://arxiv.org/abs/2310.07681">N. Zubrilina, <i>Murmurations</i></a>,
-  Invent. Math. 2025. The teal curve is computed from the formula of Theorem 1; the purple curve is
+  <footer>The teal curve is computed from the formula of Theorem 1 of
+  <a href="https://arxiv.org/abs/2310.07681">arXiv:2310.07681</a>; the purple curve is
   the almost periodic function of Theorem 3, evaluated by summing the inner series exactly through
   the polylogarithm Li<sub>3/2</sub>.</footer>
+
+  <section class="thm" id="thm" aria-label="Theorem 3">
+    <p><span class="label">Theorem 3.</span> For every even \(k>0\), the weight \(k\) murmuration density is
+    $$\mathcal{M}_k(y)=\alpha\sqrt{y}\sum_{d,s\ge1}Q(d)\,\frac{J_{k-1}(4\pi s\sqrt{y}/d)}{s},\qquad
+    Q(d)=\mu^2(d)\prod_{p\mid d}\frac{p^2}{p^4-2p^2-p+1}.$$
+    As \(y\to\infty\),
+    $$\mathcal{M}_k(y)=(-1)^{k/2-1}\,\frac{\alpha}{\pi\sqrt{2}}\,y^{1/4}\sum_{d,s\ge1}\frac{Q(d)\sqrt{d}}{s^{3/2}}\cos\!\left(\frac{4\pi s\sqrt{y}}{d}-\frac{3\pi}{4}\right)+O(1),$$
+    and the double sum is absolutely convergent and uniformly bounded.</p>
+    <p class="note">Here \(\mathcal{M}_k\) is the murmuration density of Theorem 1 and
+    $$\alpha=2\pi\prod_p\frac{p^4-2p^2-p+1}{p^4-2p^2+p}.$$ The purple curve is the main term divided by \(y^{1/4}\), as a function of \(\sqrt{y}\).</p>
+  </section>
 </div>
 </body>
 </html>
