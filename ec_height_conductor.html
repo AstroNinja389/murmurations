@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elliptic Curve Murmurations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.querySelector('.wrap'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]})"></script>
+<style>
+:root{
+  --bg:#000000; --fg:#ececf1; --muted:#9aa3b5; --rule:#2b3140; --teal:#2ccbd6; --purple:#bf5fff;
+  --display:"Spectral",Georgia,"Times New Roman",serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#000000; --fg:#ececf1; } }
+:root[data-theme="dark"]{ --bg:#000000; --fg:#ececf1; }
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--display);font-size:18px;line-height:1.55;
+  padding:0 max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px))}
+.wrap{max-width:1000px;margin:0 auto}
+.back{padding-top:18px;font-size:15px}
+.back a{color:var(--muted);text-decoration:none}
+.back a:hover{color:var(--fg)}
+h1{font-weight:400;font-size:clamp(28px,4.5vw,40px);margin:14px 0 4px}
+.kicker{color:var(--muted);font-size:16px;margin:0 0 22px}
+picture img{display:block;width:100%;height:auto;border-radius:6px}
+.cap{max-width:72ch;margin-top:18px}
+.teal{color:var(--teal)} .purple{color:var(--purple)}
+.thm h2{font-weight:500;font-size:19px;margin:1.4em 0 .5em}
+.thm{margin-top:40px;padding-top:22px;border-top:1px solid var(--rule);max-width:80ch;
+  font-family:"Spectral",Georgia,serif;font-size:17px;line-height:1.6;color:var(--fg)}
+.thm p{margin:0 0 .8em}
+.thm .label{font-weight:600}
+.thm .note{color:var(--muted);font-size:16px}
+.thm .katex{font-size:1.05em}
+.thm .katex-display{overflow-x:auto;overflow-y:hidden;padding:2px 0}
+footer{margin-top:22px;color:var(--muted);font-size:15px;max-width:72ch}
+footer a{color:inherit}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="back"><a href="index.html">← All visualizations</a></nav>
+  <h1>Height or conductor</h1>
+  <p class="kicker">Murmurations of elliptic curves, in two orderings</p>
+  <picture>
+    <source srcset="ec_height_conductor.webp" type="image/webp">
+    <img src="ec_height_conductor.gif" width="1100" height="470" alt="Animation: two panels. Left, in teal, elliptic curves ordered by naive height; right, in purple, elliptic curves of prime conductor ordered by conductor. As more curves are added, the dots settle into two different wave shapes, and white curves for the conjectured densities are drawn over them.">
+  </picture>
+  <p class="cap">Animation: for each elliptic curve \(E\), the root number \(\varepsilon(E)\) times \(a_p(E)\) is averaged over
+  the primes \(p\) with \(p/N(E)\) in each of 100 bins, and then over curves. On the left, <span class="teal">in teal</span>,
+  all curves \(y^2=x^3+Ax+B\) are added in order of naive height; on the right, <span class="purple">in purple</span>,
+  curves of prime conductor are added in order of conductor. The noise dies down and each family settles onto its own
+  shape. The white curves are the densities conjectured by Sawin and Sutherland, averaged over the same bins.</p>
+  <footer>Densities from <a href="https://arxiv.org/abs/2504.12295">arXiv:2504.12295</a>: Conjecture 1 on the left and
+  the prediction (7) on the right. Left: all 15,936 curves of naive height at most 2<sup>18</sup>, with conductors,
+  root numbers and a<sub>p</sub> computed in PARI/GP. Right: the 9,300 curves of prime conductor at most 10<sup>6</sup>
+  in the LMFDB. The density series are truncated at q ≤ 10<sup>4</sup>, m ≤ 10<sup>7</sup> (left) and
+  q ≤ 400, m ≤ 32,000 (right).</footer>
+
+  <section class="thm" id="thm" aria-label="The conjectured densities">
+    <p>For an elliptic curve \(E\) with conductor \(N(E)\), root number \(\varepsilon(E)\) and coefficients \(a_p(E)\), and
+    \(0&lt;C_1&lt;C_2\), consider the average of
+    $$\frac{\log\big(N(E)\tfrac{C_1+C_2}{2}\big)}{N(E)}\sum_{\substack{p\in(C_1N(E),\,C_2N(E)]\\ p\text{ prime}}}\varepsilon(E)\,a_p(E)$$
+    over a family of curves. Write \(E_{A,B}\colon y^2=x^3+Ax+B\), with no prime \(p\) such that \(p^4\mid A\) and
+    \(p^6\mid B\), and \(H(E_{A,B})=\max(4|A|^3,27|B|^2)\).</p>
+    <p><span class="label">Conjecture 1 (Sawin–Sutherland).</span> Over \(\{E: H(E)\le X\}\), the average tends, as
+    \(X\to\infty\), to
+    $$\int_{C_1}^{C_2}2\pi\sqrt{u}\sum_{\substack{q\ge1\\ q\text{ squarefree}}}\sum_{m\ge1}\frac{\mu(\gcd(m,q))}{q\,m\,\phi\big(q/\gcd(m,q)\big)}\,J_1\!\Big(4\pi\frac{\sqrt{u}\,m}{q}\Big)\prod_{p\mid q}\hat\ell_{p,2v_p(m)}\prod_{p\mid m,\ p\nmid q}\ell_{p,2v_p(m)}\,du.$$</p>
+    <p><span class="label">Prediction (7) (Sawin–Sutherland).</span> Over \(\{E: N(E)\le X,\ N(E)\text{ prime}\}\), the
+    average tends to the same integral with \(\prod_{p\mid m}\tilde\ell'_{p,2v_p(m)}\) in place of the two products, where
+    $$\tilde\ell'_{p,\nu}=-\frac{1}{p}\Big(1+\sum_{f}a_p(f)\Big),$$
+    the sum running over the normalized Hecke eigenforms \(f\) of weight \(\nu+2\) and level \(1\).</p>
+    <p class="note">The local factors \(\ell_{p,\nu}\) and \(\hat\ell_{p,\nu}\) are averages of \(a_{p^\nu}\) over
+    \(p\)-adic curves \(E_{A,B}\), given explicitly in Lemmas 3 and 4 of the paper. The paper proves a smoothed analogue
+    of Conjecture 1 (its Theorem 2).</p>
+  </section>
+</div>
+</body>
+</html>
